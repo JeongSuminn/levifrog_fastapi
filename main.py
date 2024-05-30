@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from todo import todo_router
+from msg import msg_router
 import uvicorn
 
 app = FastAPI()
 
-origins = ["http://127.0.0.1:5500", "http://18.207.12.132"]
+origins = ["http://127.0.0.1:5501", "http://18.207.12.132"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,7 +22,7 @@ async def welcome() -> dict:
         "msg" : "fastapi connected"
     }
 
-app.include_router(todo_router)
+app.include_router(msg_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8083, reload=True)
