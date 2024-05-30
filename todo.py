@@ -1,16 +1,20 @@
 from fastapi import APIRouter, Path
 from model import Todo
+from datetime import datetime
 
 todo_router = APIRouter()
 
 todo_list = []
 todo_counter = 0
+current_time = 0
 
 @todo_router.post("/todo")
 async def add_todo(todo: Todo) -> dict:
     global todo_counter
     todo.id = todo_counter = todo_counter + 1
     todo_list.append(todo)
+    current_time = datetime.now()
+    todo.datetime = current_time.strftime('%Y-%m-%d %H:%M:%S')
     return {
         "msg" : "todo added successfully"
     }
